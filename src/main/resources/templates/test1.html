@@ -1,0 +1,46 @@
+<!DOCTYPE html>
+<html xmlns xmlns:th="http://www.thymeleaf.org">
+<head>
+    <meta charset="UTF-8">
+    <title>공지사항 알리미</title>
+</head>
+<body>
+<h1>공지사항 알리미 테스트페이지 입니다</h1>
+
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-app.js"></script>
+<script src="https://www.gstatic.com/firebasejs/5.9.2/firebase-messaging.js"></script>
+
+<script th:inline="javascript">
+
+    let firebaseConfig = {
+        apiKey: "AIzaSyCmX-ik34fRUsDbQOOH4Oc3JD85GEBqCrg",
+        authDomain: "article-notice.firebaseapp.com",
+        projectId: "article-notice",
+        storageBucket: "article-notice.appspot.com",
+        messagingSenderId: "629960199724",
+        appId: "1:629960199724:web:090903bf0ef1f4b466cb89",
+        measurementId: "G-K8WSFPZ1Y7"
+    };
+
+    firebase.initializeApp(firebaseConfig);
+
+    const messaging = firebase.messaging();
+
+    messaging.requestPermission()
+        .then(function() {
+            return messaging.getToken();
+        })
+        .then(async function(token) {
+            alert(token)
+            console.log(token);
+
+            messaging.onMessage(payload => {
+                alert(payload)
+                console.log(payload);
+            })
+        })
+</script>
+</body>
+
+</html>

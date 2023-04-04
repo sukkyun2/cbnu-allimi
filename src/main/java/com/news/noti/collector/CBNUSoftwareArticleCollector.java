@@ -1,5 +1,7 @@
 package com.news.noti.collector;
 
+import com.news.noti.notifier.FCMPushNotifier;
+import com.news.noti.notifier.FCMPushSendRequest;
 import com.news.noti.notifier.SlackNotifier;
 import com.news.noti.notifier.SlackNotifyRequest;
 import com.news.noti.scraper.CBNUSoftwareArticle;
@@ -14,7 +16,7 @@ import java.util.List;
 @RequiredArgsConstructor
 public class CBNUSoftwareArticleCollector {
     private final CBNUSoftwareArticleScraper scraper;
-    private final SlackNotifier slackNotifier;
+    private final FCMPushNotifier webPushNotifier;
 
     public void collectArticles(CBNUSoftwareArticleCollectRequest req){
         List<CBNUSoftwareArticle> articles = scraper.scrap(req.getTargetDate());
@@ -23,6 +25,6 @@ public class CBNUSoftwareArticleCollector {
             return;
         }
 
-        slackNotifier.sendNotification(new SlackNotifyRequest(articles));
+        webPushNotifier.sendNotification(new FCMPushSendRequest(articles));
     }
 }
