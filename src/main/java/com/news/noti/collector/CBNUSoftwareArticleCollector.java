@@ -1,9 +1,8 @@
 package com.news.noti.collector;
 
+import com.news.noti.api.user.query.UserDataDao;
 import com.news.noti.notifier.FCMPushNotifier;
 import com.news.noti.notifier.FCMPushSendRequest;
-import com.news.noti.notifier.SlackNotifier;
-import com.news.noti.notifier.SlackNotifyRequest;
 import com.news.noti.scraper.CBNUSoftwareArticle;
 import com.news.noti.scraper.CBNUSoftwareArticleScraper;
 import lombok.RequiredArgsConstructor;
@@ -17,14 +16,21 @@ import java.util.List;
 public class CBNUSoftwareArticleCollector {
     private final CBNUSoftwareArticleScraper scraper;
     private final FCMPushNotifier webPushNotifier;
+    private final UserDataDao userDataDao;
 
     public void collectArticles(CBNUSoftwareArticleCollectRequest req){
         List<CBNUSoftwareArticle> articles = scraper.scrap(req.getTargetDate());
 
         if(CollectionUtils.isEmpty(articles)) {
-            return;
+            throw new NoArticleException();
         }
 
-        webPushNotifier.sendNotification(new FCMPushSendRequest(articles));
+        sendNotification(articles);
+    }
+
+    private void sendNotification(List<CBNUSoftwareArticle> articles){
+        userDataDao.findAll().stream()
+                .map(user-> FCMPushSendRequest.of(articles, user.getToken()))
+                .forEach(webPushNotifier::sendNotification);
     }
 }
