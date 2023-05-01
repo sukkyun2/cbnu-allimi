@@ -1,0 +1,20 @@
+name: Deploy
+on:
+  push:
+    branches: [ add-deploy ]
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: checkout
+        uses: actions/checkout@v3
+
+      - name: package
+        run: ./mvnw clean package
+
+      - name: build
+        run: docker build -t sukkyun2/noti .
+
+      - name: success
+        run: echo 'success!'
