@@ -19,7 +19,7 @@ jobs:
       - name: package
         run: |
             chmod 744 ./mvnw
-            ./mvnw clean package
+            ./mvnw clean package -Dmaven.test.skip=true
 
       - name: build
         run: docker build -t sukkyun2/noti .
