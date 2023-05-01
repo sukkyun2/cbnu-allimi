@@ -33,7 +33,7 @@ class FCMPushNotifierTest {
     @Test
     void push_test_with_data(){
         List<CBNUSoftwareArticle> articles = givenArticles();
-        FCMPushSendRequest fcmPushSendRequest = new FCMPushSendRequest(articles);
+        FCMPushSendRequest fcmPushSendRequest = FCMPushSendRequest.from(articles);
         notifier.sendNotification(fcmPushSendRequest);
     }
 
