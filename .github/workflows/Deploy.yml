@@ -1,7 +1,4 @@
 name: Deploy
-env:
-  ENVIRONMENT: dev
-  APP_NAME: noti
 
 on:
   push:
@@ -33,6 +30,9 @@ jobs:
           password: ${{ secrets.TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v4
+        env:
+          ENVIRONMENT: dev
+          APP_NAME: noti
         with:
           context: .
           push: true
