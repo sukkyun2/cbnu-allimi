@@ -37,9 +37,9 @@ jobs:
           context: .
           push: true
           build-args: |
-              --build-arg APP_NAME=$APP_NAME
-              --build-arg ENVIRONMENT=$ENVIRONMENT
-          tags: ghcr.io/${{ secrets.USER_NAME }}/$APP_NAME:latest
+              --build-arg APP_NAME=${{ env.APP_NAME }}
+              --build-arg ENVIRONMENT=${{ env.ENVIRONMENT }}
+          tags: ghcr.io/${{ secrets.USER_NAME }}/${{ env.APP_NAME }}:latest
 
       - name: success
         run: echo 'success!'
