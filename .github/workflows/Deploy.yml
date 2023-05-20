@@ -1,7 +1,7 @@
 name: Deploy
 env:
-  ENVIRONMENT : dev
-  APP_NAME : noti
+  ENVIRONMENT: dev
+  APP_NAME: noti
 
 on:
   push:
