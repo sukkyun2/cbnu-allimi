@@ -7,11 +7,11 @@ import java.time.LocalDate;
 
 @Getter
 @Builder
-public class CBNUSoftwareArticle {
+public class Article {
     private Integer seq;
     private String categoryName;
     private String title;
     private String linkUrl;
-    private CBNUSoftwareArticleContent content;
+    private ArticleContent content;
     private LocalDate createdAt;
 }

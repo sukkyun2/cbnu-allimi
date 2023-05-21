@@ -16,8 +16,7 @@ class CBNUSoftwareScraperIT {
 
     @Test
     void scrap_test() {
-        List<CBNUSoftwareArticle> scrap = scraper.scrap(LocalDate.now());
-
+        List<Article> scrap = scraper.scrap(LocalDate.now());
     }
 
 }

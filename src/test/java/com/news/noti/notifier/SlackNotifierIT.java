@@ -1,7 +1,7 @@
 package com.news.noti.notifier;
 
-import com.news.noti.scraper.CBNUSoftwareArticle;
-import com.news.noti.scraper.CBNUSoftwareArticleContent;
+import com.news.noti.scraper.Article;
+import com.news.noti.scraper.ArticleContent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 
@@ -19,19 +19,19 @@ class SlackNotifierIT {
 
     @Test
     void slack_new_message_test() {
-        List<CBNUSoftwareArticle> articles = givenArticles();
+        List<Article> articles = givenArticles();
 
         slackNotifier.sendNotification(new SlackNotifyRequest(articles));
     }
 
-    List<CBNUSoftwareArticle> givenArticles() {
-        return List.of(CBNUSoftwareArticle.builder()
+    List<Article> givenArticles() {
+        return List.of(Article.builder()
                 .seq(13)
                 .categoryName("학부")
                 .title("2023학년도 2학기 영어권 SAF 자매대학 파견 교환학생 선발 안내")
                 .linkUrl("https://software.cbnu.ac.kr/sub0401/14841")
                 .createdAt(LocalDate.now())
-                .content(CBNUSoftwareArticleContent.builder()
+                .content(ArticleContent.builder()
                         .imageUrls(Collections.emptyList())
                         .contents("공지내용")
                         .build())

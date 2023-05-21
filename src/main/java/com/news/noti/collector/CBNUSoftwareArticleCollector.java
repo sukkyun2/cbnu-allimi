@@ -3,7 +3,7 @@ package com.news.noti.collector;
 import com.news.noti.api.user.query.UserDataDao;
 import com.news.noti.notifier.FCMPushNotifier;
 import com.news.noti.notifier.FCMPushSendRequest;
-import com.news.noti.scraper.CBNUSoftwareArticle;
+import com.news.noti.scraper.Article;
 import com.news.noti.scraper.CBNUSoftwareArticleScraper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
@@ -19,7 +19,7 @@ public class CBNUSoftwareArticleCollector {
     private final UserDataDao userDataDao;
 
     public void collectArticles(CBNUSoftwareArticleCollectRequest req){
-        List<CBNUSoftwareArticle> articles = scraper.scrap(req.getTargetDate());
+        List<Article> articles = scraper.scrap(req.getTargetDate());
 
         if(CollectionUtils.isEmpty(articles)) {
             throw new NoArticleException();
@@ -28,7 +28,7 @@ public class CBNUSoftwareArticleCollector {
         sendNotification(articles);
     }
 
-    private void sendNotification(List<CBNUSoftwareArticle> articles){
+    private void sendNotification(List<Article> articles){
         userDataDao.findAll().stream()
                 .map(user-> FCMPushSendRequest.of(articles, user.getToken()))
                 .forEach(webPushNotifier::sendNotification);

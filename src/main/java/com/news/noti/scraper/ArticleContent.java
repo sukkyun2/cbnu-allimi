@@ -7,7 +7,7 @@ import java.util.List;
 
 @Getter
 @Builder
-public class CBNUSoftwareArticleContent {
+public class ArticleContent {
     private String contents;
     private List<String> imageUrls;
 }

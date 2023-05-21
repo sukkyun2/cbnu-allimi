@@ -1,7 +1,6 @@
 package com.news.noti.notifier;
 
-import com.news.noti.scraper.CBNUSoftwareArticle;
-import com.news.noti.scraper.CBNUSoftwareArticleScraper;
+import com.news.noti.scraper.Article;
 import com.slack.api.model.block.Blocks;
 import com.slack.api.model.block.LayoutBlock;
 import com.slack.api.model.block.SectionBlock;
@@ -9,7 +8,6 @@ import com.slack.api.webhook.Payload;
 import org.springframework.util.CollectionUtils;
 
 import java.text.MessageFormat;
-import java.util.ArrayList;
 import java.util.Collection;
 import java.util.List;
 import java.util.stream.Stream;
@@ -22,9 +20,9 @@ import static com.slack.api.model.block.element.BlockElements.button;
 import static com.slack.api.webhook.WebhookPayloads.payload;
 
 public class SlackNotifyRequest {
-    private List<CBNUSoftwareArticle> articles;
+    private List<Article> articles;
 
-    public SlackNotifyRequest(List<CBNUSoftwareArticle> articles) {
+    public SlackNotifyRequest(List<Article> articles) {
         if(CollectionUtils.isEmpty(articles)){
             throw new IllegalArgumentException("article size should be greater than 0");
         }
