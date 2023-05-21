@@ -4,6 +4,10 @@ on:
   push:
     branches: [ add-deploy ]
 
+env:
+  PROFILE: dev
+  APP_NAME: noti
+
 jobs:
   deploy:
     runs-on: ubuntu-latest
@@ -30,15 +34,12 @@ jobs:
           password: ${{ secrets.TOKEN }}
       - name: Build and push
         uses: docker/build-push-action@v4
-        env:
-          ENVIRONMENT: dev
-          APP_NAME: noti
         with:
           context: .
           push: true
           build-args: |
               APP_NAME=${{ env.APP_NAME }}
-              ENVIRONMENT=${{ env.ENVIRONMENT }}
+              PROFILE=${{ env.PROFILE }}
           tags: ghcr.io/${{ secrets.USER_NAME }}/${{ env.APP_NAME }}:latest
 
       - name: success
