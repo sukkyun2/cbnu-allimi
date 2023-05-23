@@ -1,0 +1,46 @@
+name: Deploy
+
+on:
+  push:
+    branches: [ dev ]
+
+env:
+  PROFILE: dev
+  APP_NAME: noti
+
+jobs:
+  deploy:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v3
+
+      - name: Setup jdk
+        uses: actions/setup-java@v3
+        with:
+          java-version: 17
+          distribution: 'adopt'
+
+      - name: Package
+        run: |
+            chmod 744 ./mvnw
+            ./mvnw clean package -Dmaven.test.skip=true
+
+      - name: Login to GitHub Container Registry
+        uses: docker/login-action@v2
+        with:
+          registry: ghcr.io
+          username: ${{ secrets.USER_NAME }}
+          password: ${{ secrets.TOKEN }}
+      - name: Build and push
+        uses: docker/build-push-action@v4
+        with:
+          context: .
+          push: true
+          build-args: |
+              APP_NAME=${{ env.APP_NAME }}
+              PROFILE=${{ env.PROFILE }}
+          tags: ghcr.io/${{ secrets.USER_NAME }}/${{ env.APP_NAME }}:latest
+
+      - name: success
+        run: echo 'success!'
