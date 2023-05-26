@@ -9,6 +9,7 @@ import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;
 import org.springframework.util.CollectionUtils;
 
+import java.util.Collections;
 import java.util.List;
 
 @Service
@@ -18,19 +19,21 @@ public class CBNUSoftwareArticleCollector {
     private final FCMPushNotifier webPushNotifier;
     private final UserDataDao userDataDao;
 
-    public void collectArticles(CBNUSoftwareArticleCollectRequest req){
+    public List<Article> collectArticles(CBNUSoftwareArticleCollectRequest req) {
         List<Article> articles = scraper.scrap(req.getTargetDate());
 
-        if(CollectionUtils.isEmpty(articles)) {
-            throw new NoArticleException();
+        if (CollectionUtils.isEmpty(articles)) {
+            return Collections.emptyList();
         }
 
         sendNotification(articles);
+
+        return articles;
     }
 
-    private void sendNotification(List<Article> articles){
+    private void sendNotification(List<Article> articles) {
         userDataDao.findAll().stream()
-                .map(user-> FCMPushSendRequest.of(articles, user.getToken()))
+                .map(user -> FCMPushSendRequest.of(articles, user.getToken()))
                 .forEach(webPushNotifier::sendNotification);
     }
 }
