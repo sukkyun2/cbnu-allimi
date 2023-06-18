@@ -47,6 +47,6 @@ jobs:
           key: ${{ secrets.SERVER_PEM_KEY }}
           host: ${{ secrets.SERVER_IP }}
           username: ${{ secrets.SERVER_USER }}
-          script: whoami
+          script: /home/admin/run-noti.sh
       - name: success
         run: echo 'success!'
