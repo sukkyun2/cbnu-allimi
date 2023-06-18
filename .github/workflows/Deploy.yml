@@ -43,10 +43,10 @@ jobs:
           tags: ghcr.io/${{ secrets.USER_NAME }}/${{ env.APP_NAME }}:latest
       - name: Deploy
         uses: appleboy/ssh-action@master
-          with:
-            key: ${{ secrets.SERVER_PEM_KEY }}
-            host: ${{ secrets.SERVER_IP }}
-            username: ${{ secrets.SERVER_USER }}
-            script: whoami
+        with:
+          key: ${{ secrets.SERVER_PEM_KEY }}
+          host: ${{ secrets.SERVER_IP }}
+          username: ${{ secrets.SERVER_USER }}
+          script: whoami
       - name: success
         run: echo 'success!'
