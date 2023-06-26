@@ -1,7 +1,7 @@
 package com.news.noti.notifier;
 
-import com.news.noti.scraper.Article;
-import com.news.noti.scraper.ArticleContent;
+import com.news.noti.api.article.domain.Article;
+import com.news.noti.api.article.domain.ArticleContent;
 import org.junit.jupiter.api.Test;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.context.SpringBootTest;
@@ -14,23 +14,24 @@ import java.util.List;
 
 @SpringBootTest
 @ActiveProfiles("dev")
-class FCMPushNotifierTest {
+class FCMPushNotifierIT {
 
     @Autowired
     private FCMPushNotifier notifier;
 
-    @Test
-    void push_test(){
-        FCMPushSendRequest fcmPushSendRequest = new FCMPushSendRequest(new FCMPushSendRequest.Notification("테스트", "내용"),
-                "fVKnBlYxJiI:APA91bEcHq025bbwX5UwCBPn-U7bVyAlQSykmEpIH5FmgKwNyc29ckpFfNrwW_JVmsuPoizchujLbEeD4KO_tHsgXnMED9NmhzMIy4rZbSO-Ywh831r1yVe2Jow0Zx2KhJmU-jH8ZjxI");
-
-        notifier.sendNotification(fcmPushSendRequest);
-    }
+    private String givenToken = "fVKnBlYxJiI:APA91bEcHq025bbwX5UwCBPn-U7bVyAlQSykmEpIH5FmgKwNyc29ckpFfNrwW_JVmsuPoizchujLbEeD4KO_tHsgXnMED9NmhzMIy4rZbSO-Ywh831r1yVe2Jow0Zx2KhJmU-jH8ZjxI";
 
     @Test
     void push_test_with_data(){
         List<Article> articles = givenArticles();
-        FCMPushSendRequest fcmPushSendRequest = FCMPushSendRequest.from(articles);
+        FCMPushSendRequest fcmPushSendRequest = FCMPushSendRequest.of(articles, givenToken);
+        notifier.sendNotification(fcmPushSendRequest);
+    }
+
+    @Test
+    void push_test_with_image(){
+        List<Article> articles = givenArticles();
+        FCMPushSendRequest fcmPushSendRequest = FCMPushSendRequest.of(articles, givenToken, "https://picsum.photos/150/100");
         notifier.sendNotification(fcmPushSendRequest);
     }
 

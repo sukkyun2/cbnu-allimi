@@ -6,7 +6,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 
 @FeignClient(name = "fcm-client", url = "${fcm.api.url}", configuration = FCMFeignConfiguration.class)
 public interface FCMPushClient {
-    @PostMapping("/fcm/send")
+    @PostMapping("/v1/projects/${fcm.project-name}/messages:send")
     FCMPushSendResponse sendPushMessage(FCMPushSendRequest req);
 
 }

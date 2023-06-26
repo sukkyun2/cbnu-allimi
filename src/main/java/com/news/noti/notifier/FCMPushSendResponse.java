@@ -5,6 +5,7 @@ import lombok.NoArgsConstructor;
 
 import java.util.List;
 import java.util.Map;
+import java.util.Optional;
 
 @Getter
 @NoArgsConstructor
@@ -15,7 +16,7 @@ public class FCMPushSendResponse {
     private Integer canonical_ids;
     private List<Map<String, String>> results;
 
-    public boolean isOk(){
-        return failure == 0;
+    public boolean isOk() {
+        return failure == null || failure == 0;
     }
 }
