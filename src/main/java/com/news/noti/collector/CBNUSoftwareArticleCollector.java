@@ -3,7 +3,7 @@ package com.news.noti.collector;
 import com.news.noti.api.user.query.UserDataDao;
 import com.news.noti.notifier.FCMPushNotifier;
 import com.news.noti.notifier.FCMPushSendRequest;
-import com.news.noti.scraper.Article;
+import com.news.noti.api.article.domain.Article;
 import com.news.noti.scraper.CBNUSoftwareArticleScraper;
 import lombok.RequiredArgsConstructor;
 import org.springframework.stereotype.Service;

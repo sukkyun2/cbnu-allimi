@@ -1,5 +1,6 @@
 package com.news.noti.scraper;
 
+import com.news.noti.api.article.domain.Article;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

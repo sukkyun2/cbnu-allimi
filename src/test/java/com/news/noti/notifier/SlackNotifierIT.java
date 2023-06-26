@@ -1,7 +1,7 @@
 package com.news.noti.notifier;
 
-import com.news.noti.scraper.Article;
-import com.news.noti.scraper.ArticleContent;
+import com.news.noti.api.article.domain.Article;
+import com.news.noti.api.article.domain.ArticleContent;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
 

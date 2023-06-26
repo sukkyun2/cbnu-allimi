@@ -2,10 +2,9 @@ package com.news.noti.schedule;
 
 import com.news.noti.collector.CBNUSoftwareArticleCollectRequest;
 import com.news.noti.collector.CBNUSoftwareArticleCollector;
-import com.news.noti.collector.NoArticleException;
 import com.news.noti.collector.history.CollectEvent;
 import com.news.noti.collector.history.CollectStatus;
-import com.news.noti.scraper.Article;
+import com.news.noti.api.article.domain.Article;
 import lombok.RequiredArgsConstructor;
 import lombok.extern.slf4j.Slf4j;
 import org.springframework.context.ApplicationEventPublisher;
