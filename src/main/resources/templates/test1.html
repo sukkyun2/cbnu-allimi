@@ -24,6 +24,8 @@
         measurementId: "G-K8WSFPZ1Y7"
     };
 
+    const apiUrl = document.domain === 'localhost' ? 'http://localhost:8080' : `https://${document.domain}`
+
     firebase.initializeApp(firebaseConfig);
 
     const messaging = firebase.messaging();
@@ -34,7 +36,7 @@
         })
         .then(async function(token) {
             console.log(token);
-            axios.post("http://localhost:8080/users", { token : token })
+            axios.post(`${apiUrl}/users`, { token : token })
                 .then(function(response) {
                     console.log(response);
                 })
